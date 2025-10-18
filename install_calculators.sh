@@ -87,8 +87,117 @@ make
 sudo make install PREFIX=/usr
 /usr/share/x48ng/setup-x48ng-home.sh
 
+x48ng --print-config > ~/.config/x48ng/config.lua.bak
 x48ng --print-config > ~/.config/x48ng/config.lua
-sed ~/.config/x48ng/config.lua s/"\"rom = \"rom\""/"\"rom = \"ROMs/gxrom-r\""
+cat << EOF > ~/.config/x48ng/config_gx.lua
+--------------------------------------------------------------------------------
+-- Configuration file for x48ng with hp48gx rom
+-- This is a comment
+-- `config_dir` is relative to $XDG_CONFIG_HOME/, or $HOME/.config/ or absolute
+config_dir = "x48ng"
+
+-- Pathes are either relative to `config_dir` or absolute
+rom = "gxrom-r"
+ram = "ram_gx"
+state = "state_gx"
+port1 = "port1_gx"
+port2 = "port2_gx"
+
+pseudo_terminal = false
+serial = false
+serial_line = "/dev/ttyS0"
+
+verbose = false
+debugger = false
+throttle = false
+
+--------------------
+-- User Interface --
+--------------------
+frontend = "sdl2" -- possible values: "x11", "sdl2" "tui", "tui-small", "tui-tiny"
+hide_chrome = false
+fullscreen = false
+scale = 1.333000 -- applies only to sdl2
+mono = false
+gray = false
+leave_shift_keys = false
+inhibit_shutdown = false
+
+x11_visual = "default"
+netbook = false
+font_small = "-*-fixed-bold-r-normal-*-14-*-*-*-*-*-iso8859-1"
+font_medium = "-*-fixed-bold-r-normal-*-15-*-*-*-*-*-iso8859-1"
+font_large = "-*-fixed-medium-r-normal-*-20-*-*-*-*-*-iso8859-1"
+font_devices = "-*-fixed-medium-r-normal-*-12-*-*-*-*-*-iso8859-1"
+--------------------------------------------------------------------------------
+EOF
+
+cat << EOF > ~/.config/x48ng/config_sx.lua
+--------------------------------------------------------------------------------
+-- Configuration file for x48ng
+-- This is a comment
+-- `config_dir` is relative to $XDG_CONFIG_HOME/, or $HOME/.config/ or absolute
+config_dir = "x48ng"lse
+serial = false
+-- Pathes are either relative to `config_dir` or absolute
+rom = "sxrom-j"
+ram = "ram_sx"e
+state = "state_sx"
+port1 = "port1_sx"
+port2 = "port2_sx"
+--------------------
+pseudo_terminal = false
+serial = false------
+serial_line = "/dev/ttyS0"ble values: "x11", "sdl2" "tui", "tui-small", "tui-tin
+--------------------------------------------------------------------------------
+verbose = false
+debugger = false
+throttle = false
+
+--------------------
+-- User Interface --
+--------------------
+frontend = "sdl2" -- possible values: "x11", "sdl2" "tui", "tui-small", "tui-tiny"
+hide_chrome = false
+fullscreen = false
+scale = 1.333000 -- applies only to sdl2
+mono = false
+gray = false
+leave_shift_keys = false
+inhibit_shutdown = false
+
+x11_visual = "default"
+netbook = false
+font_small = "-*-fixed-bold-r-normal-*-14-*-*-*-*-*-iso8859-1"
+font_medium = "-*-fixed-bold-r-normal-*-15-*-*-*-*-*-iso8859-1"
+font_large = "-*-fixed-medium-r-normal-*-20-*-*-*-*-*-iso8859-1"
+font_devices = "-*-fixed-medium-r-normal-*-12-*-*-*-*-*-iso8859-1"
+--------------------------------------------------------------------------------
+EOF
+
+## create x48ng executable for HP-48gx:
+cat << EOF > ~/.config/x48ng/hp48g.sh
+#!/bin/sh
+cd /home/$USER/.config/x48ng/
+rm ram_gx
+rm state_gx
+rm port1_gx
+rm port2_gx
+x48ng --sdl2 --scale 1.333 --config /home/$USER/.config/x48ng/config_gx.lua
+EOF
+
+## create x48ng executable for HP-48sx:
+cat << EOF > ~/.config/x48ng/hp48sx.sh
+#!/bin/sh
+cd /home/$USER/.config/x48ng/
+rm ram_sx
+rm state_sx
+rm port1_sx
+rm port2_sx
+x48ng --sdl2 --scale 1.333 -c /home/$USER/.config/x48ng/config_sx.lua 
+EOF
+
+
 
 ## Install WP43S WP43 calculator emulator on Linux
 ### Install dependencies
