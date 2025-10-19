@@ -1,4 +1,5 @@
-## Install HP-15c emulator on Linux as per instucted in https://ubuntuperonista.blogspot.com/2021/12/como-instalo-emulador-calculadora-hp-ubuntu.html
+## Install HP-15c emulator on Linux as per instucted 
+## on https://ubuntuperonista.blogspot.com/2021/12/como-instalo-emulador-calculadora-hp-ubuntu.html
 mkdir /tmp/hp15c/ ;
 cd /tmp/hp15c/ ;
 wget  https://bit.ly/3cMWTH8 -O HP-15C_4.3.00_Linux_x86_64.zip ;
@@ -13,12 +14,12 @@ wget http://h10032.www1.hp.com/ctg/Manual/c00503576.pdf -O hp11c_owners_manual_a
 wget http://h10032.www1.hp.com/ctg/Manual/c03030589.pdf -O hp15c_deluxe_owners_handbook.pdf ;
 cd ~
 
-## Install free42 HP-42 clone emulator on Ubuntu:
+## Install the free42 HP-42 clone emulator from Ubuntu/Debian repos:
 sudo apt update
 sudo apt upgrade
 sudo apt install free42-nologo
 
-## Install Plus42 HP-42 clone on Linux
+## Install the Thomas Okken's Plus42 HP-42 emulator on Linux
 cd /tmp/ ;
 wget https://thomasokken.com/plus42/download/Plus42Linux.tgz ;
 tar xvfz Plus42Linux.tgz
@@ -34,7 +35,7 @@ wget https://thomasokken.com/plus42/skins/desktop/Mueck_P42d_MN.layout ;
 unzip -fo Mueck_P42d.zip  ;
 unzip -fo Mueck_P42d_MN.zip
 
-## Install programs for your Plus42:
+## Install calculator programs for yours Thomas Okken's Plus42 calculator emulator:
 mkdir ~/.plus42/prg/
 cd  ~/.plus42/prg
 wget https://thomasokken.com/free42/42progs/plot_orig.raw
@@ -75,11 +76,11 @@ wget https://thomasokken.com/free42/42progs/Twix/twix.raw
 wget https://thomasokken.com/free42/42progs/cp2oct.raw
 wget https://thomasokken.com/free42/42progs/Convert2.raw
 
-## Install HP48 clone emulator on Ubuntu Linux:
-####Install dependencies:
+## Install x48ng HP-48 clone emulator on Ubuntu Linux:
+### First install dependencies:
 sudo apt install git curl libpkgconf3 libreadline-dev libsdl2-dev libx11-dev libxext-dev liblua5.4-dev
 
-### Install code an compiles it:
+### Then clone the source code and compile it in Ubuntu:
 cd /tmp
 git clone https://github.com/gwenhael-le-moine/x48ng
 cd /tmp/x48ng
@@ -87,6 +88,7 @@ make
 sudo make install PREFIX=/usr
 /usr/share/x48ng/setup-x48ng-home.sh
 
+### Then adapt the config files for the HP-48SX and HP-48GX
 x48ng --print-config > ~/.config/x48ng/config.lua.bak
 x48ng --print-config > ~/.config/x48ng/config.lua
 cat << EOF > ~/.config/x48ng/config_gx.lua
@@ -199,11 +201,11 @@ EOF
 
 
 
-## Install WP43S WP43 calculator emulator on Linux
-### Install dependencies
+## Install the WP-43 calculator WP43S emulator on Linux
+### First install its dependencies from the Ubuntu repos:
 sudo apt-get install meson git ninja-build pkg-config build-essential ccache libgtk-3-dev libgmp-dev libpulse-dev gcc-arm-none-eabi
 
-###Download code, compiles it, and creates a launcher
+### Then clone its source code, compile it, and create a launcher on Ubuntu
 cd /tmp ;
 git clone https://gitlab.com/rpncalculators/wp43
 cd /tmp/wp43/ ;
